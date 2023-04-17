@@ -2,7 +2,6 @@ package com.api.bbmnet.entity;
 
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +25,7 @@ public class CredenciaisEntity {
 	@Column(name="senha")
 	private String senha;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="sistema_id")
 	private SistemaEntity sistema;
 

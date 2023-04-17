@@ -32,6 +32,10 @@ public class SistemaEntity {
 	@JsonIgnore
 	private List<CredenciaisEntity> credenciais = new ArrayList<>();
 
+	@OneToMany(mappedBy = "sistema",fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<EditalEntity> editais = new ArrayList<>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -56,9 +60,17 @@ public class SistemaEntity {
 		this.credenciais = credenciais;
 	}
 
+	public List<EditalEntity> getEditais() {
+		return editais;
+	}
+
+	public void setEditais(List<EditalEntity> editais) {
+		this.editais = editais;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(credenciais, id, nome);
+		return Objects.hash(credenciais, editais, id, nome);
 	}
 
 	@Override
@@ -70,8 +82,8 @@ public class SistemaEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		SistemaEntity other = (SistemaEntity) obj;
-		return Objects.equals(credenciais, other.credenciais) && Objects.equals(id, other.id)
-				&& Objects.equals(nome, other.nome);
+		return Objects.equals(credenciais, other.credenciais) && Objects.equals(editais, other.editais)
+				&& Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
 	}
 	
 }
