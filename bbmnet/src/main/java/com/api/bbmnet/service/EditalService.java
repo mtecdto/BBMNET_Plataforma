@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.bbmnet.entity.EditalEntity;
+import com.api.bbmnet.entity.MensagemEntity;
 import com.api.bbmnet.entity.SistemaEntity;
 import com.api.bbmnet.form.EditalForm;
 import com.api.bbmnet.repository.EditalRepository;
@@ -52,6 +53,24 @@ public class EditalService {
 	public void deleteEditalById(Long id) {
 		
 		editalRepository.deleteById(id);
+		
+	}
+	
+	public List<MensagemEntity> getMensagensEdital(Long id) {
+		
+		Optional<EditalEntity> editalRequest = editalRepository.findById(id);
+		
+		EditalEntity editalResponse = null;
+		
+		if(editalRequest.isPresent()) {
+			
+			editalResponse = editalRequest.get();
+			
+		}
+		
+		List<MensagemEntity> mensagens = editalResponse.getMensagens();
+		
+		return mensagens;
 		
 	}
 	

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.bbmnet.entity.EditalEntity;
+import com.api.bbmnet.entity.MensagemEntity;
 import com.api.bbmnet.form.EditalForm;
 import com.api.bbmnet.service.EditalService;
 
@@ -48,6 +49,15 @@ public class EditalController {
 	public void deleteEdital(@PathVariable("id") Long id) {
 		
 		editalService.deleteEditalById(id);
+		
+	}
+	
+	@GetMapping("/mensagens/{id}")
+	public ResponseEntity<List<MensagemEntity>> getMensagens(@PathVariable("id") Long id){
+		
+		List<MensagemEntity> mensagens = editalService.getMensagensEdital(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(mensagens);
 		
 	}
 	

@@ -1,14 +1,21 @@
 package com.api.bbmnet.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -35,6 +42,10 @@ public class EditalEntity {
 	@ManyToOne
 	@JoinColumn(name="sistema_id")
 	private SistemaEntity sistema;
+	
+	@OneToMany(mappedBy = "edital",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<MensagemEntity> mensagens = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -54,6 +65,10 @@ public class EditalEntity {
 
 	public SistemaEntity getSistema() {
 		return sistema;
+	}
+
+	public List<MensagemEntity> getMensagens() {
+		return mensagens;
 	}
 
 	public void setId(Long id) {
@@ -76,9 +91,13 @@ public class EditalEntity {
 		this.sistema = sistema;
 	}
 
+	public void setMensagens(List<MensagemEntity> mensagens) {
+		this.mensagens = mensagens;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(chaveEdital, id, lote, numeroPregao, sistema);
+		return Objects.hash(chaveEdital, id, lote, mensagens, numeroPregao, sistema);
 	}
 
 	@Override
@@ -91,8 +110,8 @@ public class EditalEntity {
 			return false;
 		EditalEntity other = (EditalEntity) obj;
 		return Objects.equals(chaveEdital, other.chaveEdital) && Objects.equals(id, other.id)
-				&& Objects.equals(lote, other.lote) && Objects.equals(numeroPregao, other.numeroPregao)
-				&& Objects.equals(sistema, other.sistema);
+				&& Objects.equals(lote, other.lote) && Objects.equals(mensagens, other.mensagens)
+				&& Objects.equals(numeroPregao, other.numeroPregao) && Objects.equals(sistema, other.sistema);
 	}
 	
 }

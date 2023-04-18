@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.bbmnet.entity.CredenciaisEntity;
+import com.api.bbmnet.entity.EditalEntity;
 import com.api.bbmnet.entity.SistemaEntity;
 import com.api.bbmnet.form.SistemaForm;
 import com.api.bbmnet.service.SistemaService;
@@ -48,6 +50,24 @@ public class SistemaController {
 	public void deletaSistema(@PathVariable("id") long id) {
 		
 		sistemaService.deletaSistemaById(id);
+		
+	}
+	
+	@GetMapping("/editais/{id}")
+	public ResponseEntity<List<EditalEntity>> getEditais(@PathVariable("id") Long id){
+		
+		List<EditalEntity> editais = sistemaService.getAllEditais(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(editais);
+		
+	}
+	
+	@GetMapping("/credenciais/{id}")
+	public ResponseEntity<List<CredenciaisEntity>> getCredenciais(@PathVariable("id") Long id){
+		
+		List<CredenciaisEntity> credenciais = sistemaService.getAllCredenciais(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(credenciais);
 		
 	}
 	
